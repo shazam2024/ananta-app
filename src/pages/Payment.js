@@ -12,7 +12,7 @@ const Payment = () => {
   const { cartItems, clearCart } = useCart();
   const { user } = useAuth();
 
-  const { shippingAddress, subtotal, tax, total } = location.state || {};
+  const { shippingAddress, subtotal, tax, total, originalTotal } = location.state || {};
   
   const [paymentMethod, setPaymentMethod] = useState('card');
   const [cardDetails, setCardDetails] = useState({
@@ -372,14 +372,21 @@ const Payment = () => {
                     <span>Subtotal</span>
                     <span>₹{subtotal.toFixed(2)}</span>
                   </div>
-                  <div className="flex justify-between text-gray-600">
+                  <div className="flex justify-between text-gray-600 line-through">
                     <span>Tax (10%)</span>
                     <span>₹{tax.toFixed(2)}</span>
                   </div>
+                  <div className="flex justify-between text-green-600 font-medium">
+                    <span>Tax Deducted</span>
+                    <span>-₹{tax.toFixed(2)}</span>
+                  </div>
                   <div className="border-t pt-3">
                     <div className="flex justify-between text-lg font-bold text-ananta-dark">
-                      <span>Total</span>
+                      <span>You Pay</span>
                       <span className="text-ananta-gold">₹{total.toFixed(2)}</span>
+                    </div>
+                    <div className="text-sm text-green-600 text-right mt-1">
+                      You saved ₹{tax.toFixed(2)} on tax!
                     </div>
                   </div>
                 </div>

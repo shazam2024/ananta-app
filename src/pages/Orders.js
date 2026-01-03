@@ -186,13 +186,22 @@ const Orders = () => {
                               <span>Subtotal</span>
                               <span>₹{order.subtotal.toFixed(2)}</span>
                             </div>
-                            <div className="flex justify-between text-gray-600">
+                            <div className="flex justify-between text-gray-600 line-through">
                               <span>Tax (10%)</span>
                               <span>₹{order.tax.toFixed(2)}</span>
                             </div>
-                            <div className="border-t pt-2 flex justify-between font-semibold text-ananta-dark">
-                              <span>Total</span>
-                              <span className="text-ananta-gold">₹{order.total.toFixed(2)}</span>
+                            <div className="flex justify-between text-green-600 font-medium">
+                              <span>Tax Deducted</span>
+                              <span>-₹{order.tax.toFixed(2)}</span>
+                            </div>
+                            <div className="border-t pt-2">
+                              <div className="flex justify-between font-semibold text-ananta-dark">
+                                <span>You Paid</span>
+                                <span className="text-ananta-gold">₹{order.total.toFixed(2)}</span>
+                              </div>
+                              <div className="text-sm text-green-600 text-right mt-1">
+                                You saved ₹{order.tax.toFixed(2)} on tax!
+                              </div>
                             </div>
                             <div className="flex justify-between text-gray-600 pt-2">
                               <span>Payment Method</span>

@@ -1,10 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, Plus, Minus } from 'lucide-react';
 
 const ProductModal = ({ product, onClose, onAddToCart }) => {
   const [selectedSize, setSelectedSize] = useState('50ml');
   const [quantity, setQuantity] = useState(1);
   const [loading, setLoading] = useState(false);
+
+  // Prevent body scroll when modal is open
+  useEffect(() => {
+    const originalStyle = window.getComputedStyle(document.body);
+    const originalOverflow = originalStyle.overflow;
+    
+    document.body.style.overflow = 'hidden';
+    
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, []);
 
   const handleAddToCart = async () => {
     setLoading(true);
@@ -36,7 +48,8 @@ const ProductModal = ({ product, onClose, onAddToCart }) => {
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <div className="p-4 sm:p-6 lg:p-8">
+        <div className="modal-inner">
+          {/* Header Section */}
           <div className="flex justify-between items-start mb-4 sm:mb-6">
             <div className="flex-1 pr-4">
               <h3 className="text-xl sm:text-2xl lg:text-3xl font-serif text-ananta-dark mb-2">{product.name}</h3>
@@ -50,6 +63,7 @@ const ProductModal = ({ product, onClose, onAddToCart }) => {
             </button>
           </div>
 
+          {/* Product Image */}
           <div className="mb-6 sm:mb-8">
             <div className="aspect-video sm:aspect-square overflow-hidden rounded-xl sm:rounded-2xl bg-gradient-to-br from-gray-50 to-gray-100">
               <img
@@ -60,6 +74,7 @@ const ProductModal = ({ product, onClose, onAddToCart }) => {
             </div>
           </div>
 
+          {/* Size Selection */}
           <div className="mb-6 sm:mb-8">
             <h4 className="text-lg sm:text-xl font-semibold text-ananta-dark mb-3 sm:mb-4">Select Size</h4>
             <div className="size-selector grid grid-cols-2 gap-3 sm:gap-4">
@@ -80,6 +95,7 @@ const ProductModal = ({ product, onClose, onAddToCart }) => {
             </div>
           </div>
 
+          {/* Quantity Selection */}
           <div className="mb-6 sm:mb-8">
             <h4 className="text-lg sm:text-xl font-semibold text-ananta-dark mb-3 sm:mb-4">Quantity</h4>
             <div className="quantity-selector">
@@ -101,6 +117,7 @@ const ProductModal = ({ product, onClose, onAddToCart }) => {
             </div>
           </div>
 
+          {/* Price Summary and Add to Cart */}
           <div className="border-t border-gray-200 pt-4 sm:pt-6">
             <div className="flex justify-between items-center mb-4 sm:mb-6">
               <div>

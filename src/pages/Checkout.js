@@ -22,7 +22,8 @@ const Checkout = () => {
 
   const subtotal = getCartTotal();
   const tax = subtotal * 0.1;
-  const total = subtotal + tax;
+  const discountedTotal = subtotal; // Show original price as final price
+  const originalTotal = subtotal + tax; // What it would have been with tax
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -69,7 +70,7 @@ const Checkout = () => {
     
     if (!validateForm()) return;
     
-    navigate('/payment', { state: { shippingAddress, subtotal, tax, total } });
+    navigate('/payment', { state: { shippingAddress, subtotal, tax, total: discountedTotal, originalTotal } });
   };
 
   if (cartItems.length === 0) {
@@ -234,14 +235,21 @@ const Checkout = () => {
                     <span>Subtotal</span>
                     <span>₹{subtotal.toFixed(2)}</span>
                   </div>
-                  <div className="flex justify-between text-gray-600">
+                  <div className="flex justify-between text-gray-600 line-through">
                     <span>Tax (10%)</span>
                     <span>₹{tax.toFixed(2)}</span>
                   </div>
+                  <div className="flex justify-between text-green-600 font-medium">
+                    <span>Tax Deducted</span>
+                    <span>-₹{tax.toFixed(2)}</span>
+                  </div>
                   <div className="border-t pt-3">
                     <div className="flex justify-between text-lg font-bold text-ananta-dark">
-                      <span>Total</span>
-                      <span className="text-ananta-gold">₹{total.toFixed(2)}</span>
+                      <span>You Pay</span>
+                      <span className="text-ananta-gold">₹{discountedTotal.toFixed(2)}</span>
+                    </div>
+                    <div className="text-sm text-green-600 text-right mt-1">
+                      You saved ₹{tax.toFixed(2)} on tax!
                     </div>
                   </div>
                 </div>
