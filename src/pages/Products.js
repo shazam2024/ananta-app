@@ -57,15 +57,41 @@ const Products = () => {
                 <p className="product-description text-sm">{product.description}</p>
                 
                 <div className="flex justify-between items-center mb-4 sm:mb-6">
-                  <div className="text-center">
-                    <div className="text-xs text-gray-500 uppercase tracking-wider mb-1">50ml</div>
-                    <div className="price-display text-lg sm:text-2xl">₹{product.price50ml}</div>
-                  </div>
-                  <div className="w-px h-8 sm:h-12 bg-gray-200"></div>
-                  <div className="text-center">
-                    <div className="text-xs text-gray-500 uppercase tracking-wider mb-1">100ml</div>
-                    <div className="price-display text-lg sm:text-2xl">₹{product.price100ml}</div>
-                  </div>
+                  {product.price20ml && !product.price50ml ? (
+                    <div className="text-center w-full">
+                      <div className="text-xs text-gray-500 uppercase tracking-wider mb-1">20ml</div>
+                      <div className="price-display text-lg sm:text-2xl">₹{product.price20ml}</div>
+                    </div>
+                  ) : product.price20ml ? (
+                    <>
+                      <div className="text-center">
+                        <div className="text-xs text-gray-500 uppercase tracking-wider mb-1">20ml</div>
+                        <div className="price-display text-lg sm:text-2xl">₹{product.price20ml}</div>
+                      </div>
+                      <div className="w-px h-8 sm:h-12 bg-gray-200"></div>
+                      <div className="text-center">
+                        <div className="text-xs text-gray-500 uppercase tracking-wider mb-1">50ml</div>
+                        <div className="price-display text-lg sm:text-2xl">₹{product.price50ml}</div>
+                      </div>
+                      <div className="w-px h-8 sm:h-12 bg-gray-200"></div>
+                      <div className="text-center">
+                        <div className="text-xs text-gray-500 uppercase tracking-wider mb-1">100ml</div>
+                        <div className="price-display text-lg sm:text-2xl">₹{product.price100ml}</div>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="text-center">
+                        <div className="text-xs text-gray-500 uppercase tracking-wider mb-1">50ml</div>
+                        <div className="price-display text-lg sm:text-2xl">₹{product.price50ml}</div>
+                      </div>
+                      <div className="w-px h-8 sm:h-12 bg-gray-200"></div>
+                      <div className="text-center">
+                        <div className="text-xs text-gray-500 uppercase tracking-wider mb-1">100ml</div>
+                        <div className="price-display text-lg sm:text-2xl">₹{product.price100ml}</div>
+                      </div>
+                    </>
+                  )}
                 </div>
                 
                 <button

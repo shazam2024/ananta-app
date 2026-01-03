@@ -50,7 +50,9 @@ export const CartProvider = ({ children }) => {
         productImage: product.image,
         size,
         quantity,
-        price: size === '50ml' ? product.price50ml : product.price100ml,
+        price: size === '20ml' && product.price20ml ? product.price20ml : 
+               size === '50ml' ? product.price50ml : 
+               product.price100ml,
         addedAt: new Date().toISOString()
       };
 

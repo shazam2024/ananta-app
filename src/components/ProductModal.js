@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { X, Plus, Minus } from 'lucide-react';
 
 const ProductModal = ({ product, onClose, onAddToCart }) => {
-  const [selectedSize, setSelectedSize] = useState('50ml');
+  const [selectedSize, setSelectedSize] = useState(product.price20ml ? '20ml' : '50ml');
   const [quantity, setQuantity] = useState(1);
   const [loading, setLoading] = useState(false);
 
@@ -42,7 +42,14 @@ const ProductModal = ({ product, onClose, onAddToCart }) => {
     }
   };
 
-  const price = selectedSize === '50ml' ? product.price50ml : product.price100ml;
+  const getPrice = () => {
+    if (selectedSize === '20ml' && product.price20ml) return product.price20ml;
+    if (selectedSize === '50ml') return product.price50ml;
+    if (selectedSize === '100ml') return product.price100ml;
+    return product.price50ml; // fallback
+  };
+
+  const price = getPrice();
   const totalPrice = price * quantity;
 
   return (
@@ -77,22 +84,40 @@ const ProductModal = ({ product, onClose, onAddToCart }) => {
           {/* Size Selection */}
           <div className="mb-6 sm:mb-8">
             <h4 className="text-lg sm:text-xl font-semibold text-ananta-dark mb-3 sm:mb-4">Select Size</h4>
-            <div className="size-selector grid grid-cols-2 gap-3 sm:gap-4">
-              <button
-                onClick={() => setSelectedSize('50ml')}
-                className={`size-option ${selectedSize === '50ml' ? 'selected' : ''} p-3 sm:p-5`}
-              >
-                <div className="size-name text-sm sm:text-base">50ml</div>
-                <div className="size-price text-base sm:text-lg lg:text-xl">₹{product.price50ml}</div>
-              </button>
-              <button
-                onClick={() => setSelectedSize('100ml')}
-                className={`size-option ${selectedSize === '100ml' ? 'selected' : ''} p-3 sm:p-5`}
-              >
-                <div className="size-name text-sm sm:text-base">100ml</div>
-                <div className="size-price text-base sm:text-lg lg:text-xl">₹{product.price100ml}</div>
-              </button>
-            </div>
+            {product.price20ml && !product.price50ml ? (
+              <div className="text-center py-4">
+                <div className="inline-block bg-ananta-gold/10 border border-ananta-gold/30 rounded-lg px-6 py-3">
+                  <div className="text-sm text-gray-600 uppercase tracking-wider mb-1">20ml</div>
+                  <div className="text-xl font-bold text-ananta-gold">₹{product.price20ml}</div>
+                </div>
+              </div>
+            ) : (
+              <div className={`size-selector grid ${product.price20ml ? 'grid-cols-3' : 'grid-cols-2'} gap-3 sm:gap-4`}>
+                {product.price20ml && (
+                  <button
+                    onClick={() => setSelectedSize('20ml')}
+                    className={`size-option ${selectedSize === '20ml' ? 'selected' : ''} p-3 sm:p-5`}
+                  >
+                    <div className="size-name text-sm sm:text-base">20ml</div>
+                    <div className="size-price text-base sm:text-lg lg:text-xl">₹{product.price20ml}</div>
+                  </button>
+                )}
+                <button
+                  onClick={() => setSelectedSize('50ml')}
+                  className={`size-option ${selectedSize === '50ml' ? 'selected' : ''} p-3 sm:p-5`}
+                >
+                  <div className="size-name text-sm sm:text-base">50ml</div>
+                  <div className="size-price text-base sm:text-lg lg:text-xl">₹{product.price50ml}</div>
+                </button>
+                <button
+                  onClick={() => setSelectedSize('100ml')}
+                  className={`size-option ${selectedSize === '100ml' ? 'selected' : ''} p-3 sm:p-5`}
+                >
+                  <div className="size-name text-sm sm:text-base">100ml</div>
+                  <div className="size-price text-base sm:text-lg lg:text-xl">₹{product.price100ml}</div>
+                </button>
+              </div>
+            )}
           </div>
 
           {/* Quantity Selection */}

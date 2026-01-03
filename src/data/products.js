@@ -43,24 +43,21 @@ export const products = [
     id: 6,
     name: "Set of 3 - Women",
     description: "Golden Iris • Midnight Heals • Infinity. Lead with grace. Heal with intention. Rise without limits. (20ml each)",
-    price50ml: 599,
-    price100ml: 999,
-    image: "images/products/product-11.jpeg"
+    price20ml: 599,
+    image: "images/products/product-13.jpeg"
   },
   {
     id: 7,
     name: "Set of 3 - Men",
     description: "Aghori • Obsidian • Infinity. From spiritual depth to commanding presence to limitless potential. (20ml each)",
-    price50ml: 599,
-    price100ml: 999,
+    price20ml: 599,
     image: "images/products/product-12.jpeg"
   },
   {
     id: 8,
     name: "Family Pack",
     description: "Aghori • Golden Iris • Infinity • Midnight Heals • Obsidian. The complete ANANTA experience. (20ml each)",
-    price50ml: 1200,
-    price100ml: 2200,
+    price20ml: 1200,
     image: "images/products/product-11.jpeg"
   },
   {
